@@ -1,38 +1,33 @@
+---
+This code uses the following external packages: Pytorch 1.0 NumPy SciPy Matplotlib OpenCV lmdb
+---
+
 # Iterative Residual CNNs for Burst Photography Applications (CVPR 2019)
 
-##### Project Website: https://fkokkinos.github.io/deep_burst/
+## Project Website: <https://fkokkinos.github.io/deep_burst/>
 
-#### Dependencies:
+### Dependencies:
 
----
-This code uses the following external packages:
-
-    Pytorch 1.0
-    NumPy
-    SciPy
-    Matplotlib
-    OpenCV
-    lmdb
-
-### Models:
-
----
-We provide 3 pre-trained models in the `pretrained_models/` directory. In detail, we provide one model for each task, i.e. burst denoising, burst demosaicking and burst joint denoising-demosaicking.
-Beside the models, you will also find the hyper-parameters used to train the models.
+We provide 3 pre-trained models in the `pretrained_models/` directory. In detail, we provide one model for each task, i.e. burst denoising, burst demosaicking and burst joint denoising-demosaicking. Beside the models, you will also find the hyper-parameters used to train the models.
 
 ### Training:
 
----
-Run the following command to train the  burst denoising model:
+--------------------------------------------------------------------------------
+
+Run the following command to train the burst denoising model:
+
 ```shell
 python -B main_burst_denoise.py -depth 5 -epochs 200 -gpu -max_iter 10 -k1 5 -k2 5 -save_path experiment1/ -estimate_noise -init
 ```
+
 Run the following command to train the burst demosaicking (and denoising) model:
+
 ```shell
 python -B main_burst_demosaick.py -depth 5 -epochs 200 -gpu -max_iter 10 -k1 5 -k2 5 -save_path experiment1/  -init (-estimate_noise])
 ```
 
 List of hyper-parameters:
+
 ```shell
 usage: main.py [-h] -epochs EPOCHS [-depth DEPTH] [-init] [-save_images]
                [-save_path SAVE_PATH] [-gpu] [-num_gpus NUM_GPUS]
@@ -61,21 +56,27 @@ optional arguments:
 
 ### Dataset:
 
----
-Download test files from https://gitlab.com/filippakos/burst-cvpr-2019-test-files . Train and validation set used for training of the models are not uploaded due to size restrictions. Send an email to filippos.kokkinos[at]skoltech.ru to request the training sets.  
+--------------------------------------------------------------------------------
+
+Download test files from <https://gitlab.com/filippakos/burst-cvpr-2019-test-files> . Train and validation set used for training of the models are not uploaded due to size restrictions. Send an email to filippos.kokkinos[at]skoltech.ru to request the training sets.
 
 Each sample returned from a dataloader should be a JSON struct with the following keys:
+
 1. 'image_gt': groundtruth image with shape [C,H,W]
 2. 'image_input': burst of B frames with shape [B, C,H,W]
 3. 'filename': filename of image or any identifier to be used for image storing
 4. 'mask': CFA mask (only for demosaicking)
 5. 'warp_matrix': warp matrix that contrains the affine transformations that align the frames according to reference(always assumed to be the last one). The shape is [B,2,3].
 
----
+--------------------------------------------------------------------------------
+
 Bib:
->     @InProceedings{Kokkinos_2019_CVPR,
->               author = {Filippos, Kokkinos and Stamatios, Lefkimmiatis},
->               title = {Iterative Residual CNNs for Burst Photography Applications},
->               booktitle = {The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
->               month = {June},
->               year = {2019}}
+
+> ```
+> @InProceedings{Kokkinos_2019_CVPR,
+>           author = {Filippos, Kokkinos and Stamatios, Lefkimmiatis},
+>           title = {Iterative Residual CNNs for Burst Photography Applications},
+>           booktitle = {The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+>           month = {June},
+>           year = {2019}}
+> ```

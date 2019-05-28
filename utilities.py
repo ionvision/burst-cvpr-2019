@@ -140,10 +140,10 @@ def check_pattern(img_path):
 
 
 def linrgb_to_srgb(img):
-    """ Convert linRGB color space to sRGB 
+    """ Convert linRGB color space to sRGB
         https://en.wikipedia.org/wiki/SRGB
     """
-    assert img.dtype in [np.float32, np.float64] 
+    assert img.dtype in [np.float32, np.float64]
     img = img.copy()
     mask = img < 0.0031308
     img[~mask] = (img[~mask]**(1/2.4))*(1.055) - 0.055
@@ -156,7 +156,7 @@ def calculate_affine_matrices(burst):
     warp_matrices = np.zeros((burst.shape[0],2,3))
     warp_matrices[-1] = np.eye(2,3) # identity for reference frame
     for i, b in enumerate(burst[:-1]):
-        warp_matrix = calculate_ECC((burst[-1]/255).astype(np.float32),(b/255).astype(np.float32), 1) 
+        warp_matrix = calculate_ECC((burst[-1]/255).astype(np.float32),(b/255).astype(np.float32), 1)
         if warp_matrix is None:
             wapr_matrix = np.zeros((2,3))+np.inf
 
